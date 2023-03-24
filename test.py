@@ -24,5 +24,5 @@ async def test_fastkafka_with_redpanda():
             IrisPrediction(species="setosa"), timeout=2
         )
 
-import asyncio
-asyncio.run(test_fastkafka_with_redpanda())
+# import asyncio
+# asyncio.run(test_fastkafka_with_redpanda())
