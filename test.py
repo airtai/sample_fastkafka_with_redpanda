@@ -13,9 +13,9 @@ msg = IrisInputData(
 
 
 @pytest.mark.asyncio
-async def test_fastkafka_with_redpanda():
+async def test():
     # Start Tester app and create local Redpanda broker for testing
-    async with Tester(kafka_app, broker="redpanda") as tester:
+    async with Tester(kafka_app).using_local_redpanda(tag="v23.1.2", listener_port=9092) as tester:
         # Send IrisInputData message to input_data topic
         await tester.to_input_data(msg)
 
@@ -23,6 +23,3 @@ async def test_fastkafka_with_redpanda():
         await tester.awaited_mocks.on_predictions.assert_awaited_with(
             IrisPrediction(species="setosa"), timeout=2
         )
-
-# import asyncio
-# asyncio.run(test_fastkafka_with_redpanda())
