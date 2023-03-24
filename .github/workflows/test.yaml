@@ -1,0 +1,22 @@
+name: 'test'
+on:  [workflow_dispatch, pull_request, push]
+
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        shell: bash
+    steps: 
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+      - name: Test
+        shell: bash
+        run: |
+          set -ux
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          fastkafka testing install_deps
+          python test.py
